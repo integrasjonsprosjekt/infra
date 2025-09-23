@@ -11,8 +11,14 @@ terraform {
     address        = "https://gitlab.stud.idi.ntnu.no/api/v4/projects/30980/terraform/state/infra"
     lock_address   = "https://gitlab.stud.idi.ntnu.no/api/v4/projects/30980/terraform/state/infra/lock"
     unlock_address = "https://gitlab.stud.idi.ntnu.no/api/v4/projects/30980/terraform/state/infra/lock"
+    lock_method    = "POST"
+    unlock_method  = "DELETE"
+    retry_wait_min = 5
   }
 }
 
 provider "openstack" {
+  application_credential_id = "eda31311137745b3b6b168511356094c"
+  auth_url                  = "https://api.skyhigh.iik.ntnu.no:5000/v3"
+  user_domain_name          = "NTNU"
 }
