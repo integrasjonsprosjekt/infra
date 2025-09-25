@@ -14,7 +14,7 @@ build-image:
     DOCKER_TLS_CERTDIR: ""
     DOCKER_DRIVER: overlay2
   script:
-    - echo "$CI_JOB_TOKEN" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
+    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
     - docker build -t "$CI_REGISTRY_IMAGE/tofu:1.10" .
     - docker push "$CI_REGISTRY_IMAGE/tofu:1.10"
   rules:
@@ -39,7 +39,7 @@ terraform-fmt:
 
 terraform-plan:
   before_script:
-    - echo "$CI_JOB_TOKEN" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
+    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
   stage: plan
   image: "$CI_REGISTRY_IMAGE/tofu:1.10"
   tags:
