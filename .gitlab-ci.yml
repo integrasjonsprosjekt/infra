@@ -38,6 +38,8 @@ terraform-fmt:
       when: always
 
 terraform-plan:
+  before_script:
+    - echo "$CI_JOB_TOKEN" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
   stage: plan
   image: "$CI_REGISTRY_IMAGE/tofu:1.10"
   tags:
