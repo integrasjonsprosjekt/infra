@@ -3,6 +3,10 @@ stages:
   - fmt
   - plan
 
+variables:
+  TF_HTTP_USERNAME: gitlab-ci-token
+  TF_HTTP_PASSWORD: $CI_JOB_TOKEN
+
 build-image:
   stage: build
   image: docker:24.0
