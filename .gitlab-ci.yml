@@ -6,6 +6,7 @@ stages:
 variables:
   TF_HTTP_USERNAME: gitlab-ci-token
   TF_HTTP_PASSWORD: $CI_JOB_TOKEN
+  SKIP_BUILD_IMAGE: "false"
 
 build-image:
   stage: build
@@ -25,7 +26,8 @@ build-image:
     - if: '$CI_COMMIT_BRANCH == "main"'
       changes:
         - Dockerfile
-      when: always
+    - if: '$SKIP_BUILD_IMAGE == "true"'
+      when: never
 
 terraform-fmt:
   stage: fmt
