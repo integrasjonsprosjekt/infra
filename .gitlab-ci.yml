@@ -1,7 +1,9 @@
 stages:
   - build
+  - validate
   - fmt
   - plan
+  - apply
 
 variables:
   TF_HTTP_USERNAME: gitlab-ci-token
@@ -28,6 +30,22 @@ build-image:
         - Dockerfile
     - if: '$SKIP_BUILD_IMAGE == "true"'
       when: never
+
+terraform-validate:
+  stage: validate
+  image: "$CI_REGISTRY_IMAGE/tofu:1.10"
+  tags:
+    - docker
+  script:
+    - echo "Running terraform validate..."
+    - cd terraform || exit 1
+    - tofu init
+    - tofu validate
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      changes:
+        - "**/*.tf"
+      when: always
 
 terraform-fmt:
   stage: fmt
@@ -61,6 +79,24 @@ terraform-plan:
     - terraform-fmt
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
+      changes:
+        - "**/*.tf"
+      when: always
+
+terraform-apply:
+  stage: apply
+  image: "$CI_REGISTRY_IMAGE/tofu:1.10"
+  tags:
+    - docker
+  script:
+    - echo "Running terraform apply..."
+    - cd terraform || exit 1
+    - tofu init
+    - tofu apply -auto-approve tfplan
+  dependencies:
+    - terraform-plan
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "push"'
       changes:
         - "**/*.tf"
       when: always
