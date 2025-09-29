@@ -8,7 +8,6 @@ stages:
 variables:
   TF_HTTP_USERNAME: gitlab-ci-token
   TF_HTTP_PASSWORD: $CI_JOB_TOKEN
-  SKIP_BUILD_IMAGE: "false"
 
 build-image:
   stage: build
@@ -26,10 +25,9 @@ build-image:
     - docker push "$CI_REGISTRY_IMAGE/tofu:1.10"
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
+      when: always
       changes:
         - Dockerfile
-    - if: '$SKIP_BUILD_IMAGE == "true"'
-      when: never
 
 terraform-validate:
   stage: validate
@@ -73,7 +71,7 @@ terraform-plan:
     - tofu plan -out=tfplan
   artifacts:
     paths:
-      - tfplan
+      - terraform/tfplan
     expire_in: 1 hour
   dependencies:
     - terraform-fmt
