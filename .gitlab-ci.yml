@@ -67,7 +67,7 @@ terraform-plan:
   script:
     - echo "Running terraform plan..."
     - cd terraform || exit 1
-    - env | cut -d= -f1
+    - env | cut -d= -f1 | grep OS
     - tofu init
     - tofu plan -out=tfplan
   artifacts:
