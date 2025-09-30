@@ -18,7 +18,6 @@ terraform {
 }
 
 provider "openstack" {
-  application_credential_id = "eda31311137745b3b6b168511356094c"
-  auth_url                  = "https://api.skyhigh.iik.ntnu.no:5000/v3"
-  user_domain_name          = "NTNU"
+  auth_url         = "https://api.skyhigh.iik.ntnu.no:5000/v3"
+  user_domain_name = "NTNU"
 }
