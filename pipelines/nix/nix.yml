@@ -8,4 +8,4 @@ build-flakes:
   tags:
     - docker
   script:
-    - ./pipelines/nix/build-nix.sh
+    - ./pipelines/nix/nix-build.sh
