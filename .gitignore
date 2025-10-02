@@ -2,3 +2,6 @@
 .direnv
 
 .terraform
+
+*id_*
+!*id_*.pub
