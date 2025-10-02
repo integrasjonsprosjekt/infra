@@ -4,7 +4,7 @@ stages:
 
 build-flakes:
   stage: build
-  image: nixos/nix:2
+  image: nixos/nix:latest
   tags:
     - docker
   script:
