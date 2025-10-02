@@ -9,8 +9,3 @@ build-flakes:
     - docker
   script:
     - ./pipelines/nix/build-nix.sh
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "main"'
-      when: always
-      changes:
-        - "nixos/**"
