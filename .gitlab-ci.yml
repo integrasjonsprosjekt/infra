@@ -29,6 +29,12 @@ build-image:
       changes:
         - Dockerfile
 
+build-nix:
+  stage: build
+  trigger:
+    include: pipelines/nix/nix.yml
+    strategy: mirror
+
 terraform-validate:
   stage: validate
   image: "$CI_REGISTRY_IMAGE/tofu:1.10"
@@ -76,7 +82,7 @@ terraform-plan:
   dependencies:
     - terraform-fmt
   rules:
-    - if: '$CI_COMMIT_BRANCH == "main"'
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes:
         - "**/*.tf"
       when: always

@@ -1,0 +1,16 @@
+stages:
+  - build
+  - push
+
+build-flakes:
+  stage: build
+  image: nixos/nix:2
+  tags:
+    - docker
+  script:
+    - ./pipelines/nix/build-nix.sh
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: always
+      changes:
+        - "nixos/**"
