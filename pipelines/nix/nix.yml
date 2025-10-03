@@ -7,7 +7,7 @@ build-flakes:
   image: nixos/nix:latest
   cache:
     key: "cache-$CI_COMMIT_REF_SLUG"
-    fallback-keys:
+    fallback_keys:
       - "cache-$CI_DEFAULT_BRANCH"
       - "cache-default"
     paths:
