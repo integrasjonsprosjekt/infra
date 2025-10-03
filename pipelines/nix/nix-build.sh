@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-HOSTS=$(find nixos/hosts -type d -print)
+HOSTS=$(find nixos/hosts -type d -print | sed 's|^nixos/hosts/||' | tail -n +2)
 
 for host in $HOSTS; do
   if [ -f "$host/configuration.nix" ]; then
