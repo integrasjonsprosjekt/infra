@@ -13,8 +13,6 @@ build-flakes:
     paths:
       - /nix/store
       - /nix/var/nix/gcroots
-  tags:
-    - docker
   script:
     - ./pipelines/nix/nix-build.sh
   artifacts:
