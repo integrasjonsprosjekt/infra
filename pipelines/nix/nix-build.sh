@@ -6,6 +6,6 @@ for host in $HOSTS; do
   if [ -f "$host/configuration.nix" ]; then
     echo "Building and activating configuration for host: $host"
     mkdir -p result
-    nix build "nixos/#$host" --out-link "result/$host"
+    nix build --extra-experimental-features nix-command "nixos/#$host" --out-link "result/$host"
   fi
 done
