@@ -7,5 +7,7 @@ for host in $HOSTS; do
     echo "Building and activating configuration for host: $host"
     mkdir -p result
     nix build --option system-features "kvm" --extra-experimental-features nix-command --extra-experimental-features flakes "nixos/#$host" --out-link "result/$host" || exit 1
+    mkdir -p result-nonsym/$host
+    cp result/$host/* result-nonsym/$host/
   fi
 done
