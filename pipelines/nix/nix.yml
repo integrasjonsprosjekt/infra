@@ -5,14 +5,8 @@ stages:
 build-flakes:
   stage: build
   image: nixos/nix:latest
-  cache:
-    key: "cache-$CI_COMMIT_REF_SLUG"
-    fallback_keys:
-      - "cache-$CI_DEFAULT_BRANCH"
-      - "cache-default"
-    paths:
-      - /nix/store
-      - /nix/var/nix/gcroots
+  tags:
+    - docker
   script:
     - ./pipelines/nix/nix-build.sh
   artifacts:
