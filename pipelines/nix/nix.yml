@@ -9,3 +9,6 @@ build-flakes:
     - docker
   script:
     - ./pipelines/nix/nix-build.sh
+  artifacts:
+    paths:
+      - result
