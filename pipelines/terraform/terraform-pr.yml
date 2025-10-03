@@ -1,0 +1,39 @@
+stages:
+  - validate
+  - fmt
+  - plan
+
+validate:
+  stage: validate
+  image: "$CI_REGISTRY_IMAGE/tofu:1.10"
+  tags:
+    - docker
+  script:
+    - echo "Running terraform validate..."
+    - cd terraform || exit 1
+    - tofu init
+    - tofu validate
+
+fmt:
+  stage: fmt
+  image: "$CI_REGISTRY_IMAGE/tofu:1.10"
+  tags:
+    - docker
+  script:
+    - echo "Running terraform fmt..."
+    - tofu fmt -check -recursive
+
+plan:
+  stage: plan
+  image: "$CI_REGISTRY_IMAGE/tofu:1.10"
+  tags:
+    - docker
+  script:
+    - echo "Running terraform plan..."
+    - cd terraform || exit 1
+    - tofu init
+    - tofu plan -out=tfplan
+  artifacts:
+    paths:
+      - terraform/tfplan
+    expire_in: 1 hour

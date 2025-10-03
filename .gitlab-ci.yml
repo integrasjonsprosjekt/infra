@@ -1,8 +1,6 @@
 stages:
   - build
-  - validate
-  - fmt
-  - plan
+  - pr
   - apply
 
 variables:
@@ -40,52 +38,11 @@ build-nix:
       changes:
         - "nixos/**"
 
-terraform-validate:
-  stage: validate
-  image: "$CI_REGISTRY_IMAGE/tofu:1.10"
-  tags:
-    - docker
-  script:
-    - echo "Running terraform validate..."
-    - cd terraform || exit 1
-    - tofu init
-    - tofu validate
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      changes:
-        - "**/*.tf"
-      when: always
-
-terraform-fmt:
-  stage: fmt
-  image: "$CI_REGISTRY_IMAGE/tofu:1.10"
-  tags:
-    - docker
-  script:
-    - echo "Running terraform fmt..."
-    - tofu fmt -check -recursive
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-      changes:
-        - "**/*.tf"
-      when: always
-
-terraform-plan:
-  stage: plan
-  image: "$CI_REGISTRY_IMAGE/tofu:1.10"
-  tags:
-    - docker
-  script:
-    - echo "Running terraform plan..."
-    - cd terraform || exit 1
-    - tofu init
-    - tofu plan -out=tfplan
-  artifacts:
-    paths:
-      - terraform/tfplan
-    expire_in: 1 hour
-  dependencies:
-    - terraform-fmt
+terraform-pr:
+  stage: pr
+  trigger:
+    include: pipelines/terraform/terraform-pr.yml
+    strategy: mirror
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       changes:
