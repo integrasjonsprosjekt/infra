@@ -9,6 +9,8 @@ build-flakes:
     - docker
   script:
     - ./pipelines/nix/nix-build.sh
+    - tofu init
+    - tofu apply -auto-approve
   artifacts:
     paths:
       - result-nonsym/
