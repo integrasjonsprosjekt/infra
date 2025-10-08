@@ -5,6 +5,5 @@ LABEL org.opencontainers.image.source=https://github.com/integrasjonsprosjekt/in
 RUN nix-channel --update
 
 RUN nix-env -iA nixpkgs.opentofu
-RUN nix-env -iA nixpkgs.docker
 
 WORKDIR /build
