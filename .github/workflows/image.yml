@@ -1,0 +1,23 @@
+name: Build and Deploy Image
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "nixos/**"
+      - "terraform/image/**"
+      - ".github/workflows/image.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: self-hosted
+    container: ghcr.io/integrasjonsprosjekt/nix-tofu:latest
+    steps:
+      - name: Build
+        run: scripts/nix-build.sh
+      - name: Publish
+        run: |
+          cd terraform/image
+          tofu init
+          tofu apply -auto-approve
