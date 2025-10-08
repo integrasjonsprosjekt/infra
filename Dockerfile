@@ -1,13 +1,7 @@
-# Stage 1: get tofu binary
-FROM ghcr.io/opentofu/opentofu:minimal AS builder
+FROM nixos/nix
 
-# Stage 2: base environment for CI
-FROM alpine:3.20
+RUN nix-channel --update
 
-# Copy tofu binary from builder
-COPY --from=builder /usr/local/bin/tofu /usr/local/bin/tofu
-
-# Install needed tools
-RUN apk add --no-cache bash git
+RUN nix-env -iA nixpkgs.opentofu
 
 WORKDIR /build

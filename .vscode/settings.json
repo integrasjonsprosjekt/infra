@@ -1,6 +1,7 @@
 {
   "conventionalCommits.scopes": [
     "nix",
-    "terraform"
+    "terraform",
+    "docker"
   ]
 }
