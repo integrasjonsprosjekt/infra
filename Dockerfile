@@ -1,6 +1,6 @@
 FROM nixos/nix
 
-LABEL org.opencontainers.image.source=https://github.com/OWNER/REPO
+LABEL org.opencontainers.image.source=https://github.com/integrasjonsprosjekt/infra
 
 RUN nix-channel --update
 
