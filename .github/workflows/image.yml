@@ -1,4 +1,4 @@
-name: Build and Deploy Image
+name: Build and push nixos image
 on:
   push:
     branches:
@@ -15,7 +15,7 @@ jobs:
     container: ghcr.io/integrasjonsprosjekt/nix-tofu:latest
     steps:
       - name: Build
-        run: scripts/nix-build.sh
+        run: ./scripts/nix-build.sh
       - name: Publish
         run: |
           cd terraform/image
