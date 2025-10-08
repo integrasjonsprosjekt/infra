@@ -8,6 +8,6 @@ for host in $HOSTS; do
     mkdir -p result
     nix build --option system-features "kvm" --extra-experimental-features nix-command --extra-experimental-features flakes "nixos/#$host" --out-link "result/$host" || exit 1
     mkdir -p result-nonsym/$host
-    cp -r result/$host/* result-nonsym/$host/
+    cp -r result/$host/* $CI_PROJECT_DIR/result-nonsym/$host/
   fi
 done
