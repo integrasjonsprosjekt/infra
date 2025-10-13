@@ -11,12 +11,13 @@ on:
 
 jobs:
   build:
-    runs-on: self-hosted
-    container: ghcr.io/integrasjonsprosjekt/nix-tofu:latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v16
       - name: Build
         run: ./scripts/nix-build.sh
+      - uses: opentofu/setup-opentofu@v1
       - name: Publish
         run: |
           cd terraform/image
