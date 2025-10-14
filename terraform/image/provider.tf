@@ -7,13 +7,8 @@ terraform {
     }
 
   }
-  backend "http" {
-    address        = "https://gitlab.stud.idi.ntnu.no/api/v4/projects/30980/terraform/state/nix-image"
-    lock_address   = "https://gitlab.stud.idi.ntnu.no/api/v4/projects/30980/terraform/state/nix-image/lock"
-    unlock_address = "https://gitlab.stud.idi.ntnu.no/api/v4/projects/30980/terraform/state/nix-image/lock"
-    lock_method    = "POST"
-    unlock_method  = "DELETE"
-    retry_wait_min = 5
+  backend "pg" {
+    schema_name = "terraform_remote_state_main"
   }
 }
 
