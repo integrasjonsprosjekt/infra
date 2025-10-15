@@ -14,11 +14,6 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v5
-      - uses: cachix/cachix-action@v14
-        with:
-          name: nix-community
-      # - name: Build
-      #   run: ./scripts/nix-build.sh
       - uses: opentofu/setup-opentofu@v1
       - name: Publish
         run: |
