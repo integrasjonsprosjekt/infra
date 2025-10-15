@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: cachix/install-nix-action@v16
-      - uses: cachix/cachix-action@v10
+      - uses: cachix/cachix-action@v14
         with:
           name: nix-community
       # - name: Build
