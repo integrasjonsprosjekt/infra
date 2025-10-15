@@ -17,6 +17,7 @@ jobs:
       - uses: opentofu/setup-opentofu@v1
       - name: Publish
         run: |
+          node -v
           cd terraform/image
           tofu init
           tofu apply -auto-approve
