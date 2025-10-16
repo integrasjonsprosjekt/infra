@@ -16,6 +16,6 @@ for host in $HOSTS; do
     mkdir -p result
     nix build --option system-features "kvm" --extra-experimental-features nix-command --extra-experimental-features flakes "nixos/#$host" --out-link "result/$host" || exit 1
     mkdir -p result-nonsym/$host
-    cp -r result/$host/nixos* result-nonsym/$host/
+    cp -r result/$host/nixos-image-openstack* result-nonsym/$host.qcow2
   fi
 done
