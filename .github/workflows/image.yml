@@ -22,6 +22,7 @@ jobs:
         run: |
           cd terraform/image
           tofu init
+          echo Starting apply
           tofu apply -auto-approve
         env:
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
