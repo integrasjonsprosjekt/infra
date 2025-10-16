@@ -7,6 +7,7 @@ on:
       - "nixos/**"
       - "terraform/image/**"
       - ".github/workflows/image.yml"
+      - "scripts/nix-build.sh"
   workflow_dispatch:
 
 jobs:
