@@ -5,7 +5,7 @@ resource "openstack_images_image_v2" "frontend-image" {
   visibility       = "private"
   tags             = ["nix"]
 
-  local_file_path = file("../../result-nonsym/${path.module}/nix-image.qcow2")
+  local_file_path = file("${path.module}/../../result-nonsym/nix-image.qcow2")
 }
 
 resource "openstack_images_image_v2" "nix-image" {
@@ -15,6 +15,6 @@ resource "openstack_images_image_v2" "nix-image" {
   visibility       = "private"
   tags             = ["nix"]
 
-  local_file_path = file("../../result-nonsym/${path.module}/nix-image.qcow2")
+  local_file_path = file("${path.module}../../result-nonsym/nix-image.qcow2")
 
 }
