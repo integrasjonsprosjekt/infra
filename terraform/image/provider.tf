@@ -8,7 +8,7 @@ terraform {
 
   }
   backend "pg" {
-    schema_name = "terraform_remote_state_main"
+    schema_name = "terraform_remote_state_image"
   }
 }
 
