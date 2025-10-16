@@ -26,3 +26,6 @@ jobs:
           tofu apply -auto-approve
         env:
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
+          OS_AUTH_URL: ${{ secrets.OS_AUTH_URL }}
+          OS_APPLICATION_CREDENTIAL_SECRET: ${{ secrets.OS_APPLICATION_CREDENTIAL_SECRET }}
+          OS_APPLICATION_CREDENTIAL_ID: ${{ secrets.OS_APPLICATION_CREDENTIAL_ID }}
