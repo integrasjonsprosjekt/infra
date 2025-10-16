@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
+set -e
+# Load nix environment
+if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then
+  . "$HOME/.nix-profile/etc/profile.d/nix.sh"
+elif [ -e "/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh" ]; then
+  . "/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
+fi
+
 
 HOSTS=$(find nixos/hosts -mindepth 1 -maxdepth 1 -type d -printf '%f\n')
 
