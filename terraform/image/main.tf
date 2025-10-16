@@ -18,3 +18,11 @@ resource "openstack_images_image_v2" "backend-image" {
   local_file_path = "${path.module}/../../result-nonsym/backend.qcow2"
 
 }
+
+output "frontend_image_id" {
+  value = openstack_images_image_v2.frontend-image.id
+}
+
+output "backend_image_id" {
+  value = openstack_images_image_v2.backend-image.id
+}
