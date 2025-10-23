@@ -17,7 +17,20 @@ module "vm-frontend" {
   source = "../modules/vm"
   name   = "frontend-vm"
   image_id = data.terraform_remote_state.image.outputs.frontend_image_id
-  flavor = "gx3.2c4r"
+  flavor = "gx1.1c1r"
+  user_data = null
+  security_group_ids = [ module.secgroup.id ]
+  floating_ip = true
+  volume_ids = []
+  subnet_id = module.network.subnet_ids["main-network-subnet-subnet1"]
+  depends_on = [ module.network, module.secgroup ]
+}
+
+module "vm-backend" {
+  source = "../modules/vm"
+  name   = "backend-vm"
+  image_id = data.terraform_remote_state.image.outputs.backend_image_id
+  flavor = "gx1.1c1r"
   user_data = null
   security_group_ids = [ module.secgroup.id ]
   floating_ip = true
