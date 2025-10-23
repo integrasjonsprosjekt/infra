@@ -16,7 +16,6 @@ resource "openstack_images_image_v2" "backend-image" {
   tags             = ["nix"]
 
   local_file_path = "${path.module}/../../result-nonsym/backend.qcow2"
-
 }
 
 output "frontend_image_id" {

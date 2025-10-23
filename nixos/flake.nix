@@ -29,9 +29,10 @@
                   services.openssh.enable = true;
                   services.qemuGuest.enable = true;
                   virtualisation.docker.enable = true;
+                  security.sudo.wheelNeedsPassword = false;
                   users.users.nixos = {
                     isNormalUser = true;
-                    extraGroups = ["wheel"];
+                    extraGroups = ["wheel" "docker"];
                     openssh.authorizedKeys.keys = [
                       (builtins.readFile ./id_ed25519.pub)
                     ];

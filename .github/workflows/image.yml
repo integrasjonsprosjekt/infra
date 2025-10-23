@@ -23,7 +23,7 @@ jobs:
           cd terraform/image
           tofu init
           echo Starting apply
-          tofu apply -auto-approve
+          tofu apply -auto-approve -replace="openstack_images_image_v2.frontend-image" -replace="openstack_images_image_v2.backend-image"
         env:
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
           OS_AUTH_URL: ${{ secrets.OS_AUTH_URL }}
