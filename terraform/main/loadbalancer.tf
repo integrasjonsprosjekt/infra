@@ -24,7 +24,7 @@ resource "openstack_lb_listener_v2" "https-listener" {
   loadbalancer_id = openstack_lb_loadbalancer_v2.loadbalacer.id
   protocol = "TERMINATED_HTTPS"
   protocol_port = 443
-  default_tls_container_ref = local.tls_secret1 # Not managed by terraform because it is stored in the state
+  default_tls_container_ref = local.tls_secret1 # Not managed by terraform because it would be stored in the state
 }
 
 resource "openstack_lb_listener_v2" "http-listener" {
@@ -33,18 +33,32 @@ resource "openstack_lb_listener_v2" "http-listener" {
   protocol_port = 80
 }
 
-resource "openstack_lb_l7policy_v2" "frontend-l7policy" {
-  name = "frontend-l7policy"
+resource "openstack_lb_l7policy_v2" "http-to-https" {
+  name = "http-to-https"
   listener_id = openstack_lb_listener_v2.http-listener.id
   action = "REDIRECT_TO_URL"
   redirect_url = "https://${local.lb_fip}/"
 }
 
 resource "openstack_lb_l7rule_v2" "match-all" {
-  l7policy_id = openstack_lb_l7policy_v2.frontend-l7policy.id
+  l7policy_id = openstack_lb_l7policy_v2.http-to-https.id
   type = "PATH"
   compare_type = "STARTS_WITH"
   value = "/"
+}
+
+resource "openstack_lb_l7policy_v2" "api-redirect" {
+  name = "api-redirect"
+  listener_id = openstack_lb_listener_v2.https-listener.id
+  action = "REDIRECT_TO_POOL"
+  redirect_pool_id = openstack_lb_pool_v2.backend-pool.id
+}
+
+resource "openstack_lb_l7rule_v2" "match-api" {
+  l7policy_id = openstack_lb_l7policy_v2.api-redirect.id
+  type = "PATH"
+  compare_type = "STARTS_WITH"
+  value = "/api/"
 }
 
 resource "openstack_lb_pool_v2" "frontend-pool" {
