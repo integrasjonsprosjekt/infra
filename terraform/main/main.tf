@@ -32,7 +32,7 @@ module "vm-backend" {
   image_id = data.terraform_remote_state.image.outputs.backend_image_id
   flavor = "gx1.1c1r"
   user_data = templatefile("${path.module}/cloud-init.yml", {
-    google_application_credentials = var.google_application_credentials
+    google_application_credentials = var.GOOGLE_APPLICATION_CREDENTIALS_CONTENT
   })
   security_group_ids = [ module.secgroup.id ]
   floating_ip = true
