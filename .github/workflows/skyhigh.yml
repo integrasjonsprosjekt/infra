@@ -13,7 +13,7 @@ jobs:
           cd terraform/main
           tofu init
           echo Starting apply
-          tofu apply -auto-approve
+          TF_LOG=DEBUG tofu apply -auto-approve
         env:
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
           OS_AUTH_URL: ${{ secrets.OS_AUTH_URL }}
