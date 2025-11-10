@@ -1,6 +1,6 @@
 {...}: {
   virtualisation.oci-containers = {
-    backend = "docker";
+    backend = "podman";
     containers = {
       frontend = {
         image = "ghcr.io/integrasjonsprosjekt/memora-web:latest";

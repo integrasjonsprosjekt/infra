@@ -28,11 +28,11 @@
                 {
                   services.openssh.enable = true;
                   services.qemuGuest.enable = true;
-                  virtualisation.docker.enable = true;
+                  virtualisation.podman.enable = true;
                   security.sudo.wheelNeedsPassword = false;
                   users.users.nixos = {
                     isNormalUser = true;
-                    extraGroups = ["wheel" "docker"];
+                    extraGroups = ["wheel"];
                     openssh.authorizedKeys.keys = [
                       (builtins.readFile ./id_ed25519.pub)
                     ];
