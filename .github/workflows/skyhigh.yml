@@ -13,8 +13,7 @@ jobs:
           cd terraform/main
           tofu init
           echo Starting apply
-          export TF_LOG=DEBUG
-          export TF_LOG_PATH="./terraform.log"
+          export TF_IN_AUTOMATION=true
           tofu apply -auto-approve
         env:
           PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
