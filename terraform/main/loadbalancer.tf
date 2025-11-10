@@ -83,3 +83,12 @@ resource "openstack_lb_pool_v2" "backend-pool" {
   lb_method = "ROUND_ROBIN"
   protocol = "HTTP"
 }
+
+resource "openstack_lb_members_v2" "backend_members" {
+  pool_id = openstack_lb_pool_v2.backend-pool.id
+  member {
+    name = "backend-vm-member"
+    address = module.vm-backend.ip
+    protocol_port = 80
+  }
+}
