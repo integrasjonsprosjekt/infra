@@ -10,6 +10,10 @@
         volumes = [ "/run/secrets/google_application_credentials.json:/google_application_credentials.json" ];
         environment = { GOOGLE_APPLICATION_CREDENTIALS = "/google_application_credentials.json"; };
       };
+      redis = {
+        image = "redis:latest";
+        ports = [ "6379:6379" ];
+      };
     };
   };
   services.cloud-init.enable = true;
