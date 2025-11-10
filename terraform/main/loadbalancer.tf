@@ -77,6 +77,16 @@ resource "openstack_lb_members_v2" "frontend_members" {
   }
 }
 
+resource "openstack_lb_monitor_v2" "frontend_monitor" {
+  pool_id = openstack_lb_pool_v2.frontend-pool.id
+  type = "HTTP"
+  delay = 5
+  timeout = 3
+  max_retries = 3
+  url_path = "/health"
+  expected_codes = "200"
+}
+
 resource "openstack_lb_pool_v2" "backend-pool" {
   name = "backend-pool"
   loadbalancer_id = openstack_lb_loadbalancer_v2.loadbalacer.id
@@ -91,4 +101,14 @@ resource "openstack_lb_members_v2" "backend_members" {
     address = module.vm-backend.ip
     protocol_port = 80
   }
+}
+
+resource "openstack_lb_monitor_v2" "backend_monitor" {
+  pool_id = openstack_lb_pool_v2.backend-pool.id
+  type = "HTTP"
+  delay = 5
+  timeout = 3
+  max_retries = 3
+  url_path = "/api/v1/status"
+  expected_codes = "200"
 }
