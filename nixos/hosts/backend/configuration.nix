@@ -3,6 +3,7 @@
     backend = "podman";
     containers = {
       backend = {
+        pull = "always";
         image = "ghcr.io/integrasjonsprosjekt/memora-api:latest";
         ports = [
           "80:8080"
