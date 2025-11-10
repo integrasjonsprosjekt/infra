@@ -2,7 +2,7 @@
 write_files:
   - path: /run/secrets/google_application_credentials.json
     permissions: '0400'
-    owner: root:root
+    owner: nixos:users
     encoding: b64
     content: |
       ${google_application_credentials}
