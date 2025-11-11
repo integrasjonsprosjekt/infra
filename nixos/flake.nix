@@ -28,7 +28,10 @@
                 {
                   services.openssh.enable = true;
                   services.qemuGuest.enable = true;
-                  virtualisation.podman.enable = true;
+                  virtualisation.podman = {
+                    enable = true;
+                    defaultNetwork.settings = { dns_enabled = true; };
+                  };
                   security.sudo.wheelNeedsPassword = false;
                   users.users.nixos = {
                     isNormalUser = true;
