@@ -8,7 +8,7 @@
         ports = [
           "80:8080"
         ];
-        volumes = [ "/run/secrets/google_application_credentials.json:/google_application_credentials.json" ];
+        volumes = [ "/etc/secrets/google_application_credentials.json:/google_application_credentials.json" ];
         environment = { GOOGLE_APPLICATION_CREDENTIALS = "/google_application_credentials.json"; };
       };
       redis = {

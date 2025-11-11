@@ -1,6 +1,6 @@
 #cloud-config
 write_files:
-  - path: /run/secrets/google_application_credentials.json
+  - path: /etc/secrets/google_application_credentials.json
     permissions: '0400'
     owner: nixos:users
     encoding: b64
