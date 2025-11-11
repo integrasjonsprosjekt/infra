@@ -33,4 +33,5 @@ jobs:
     runs-on: self-hosted
     needs: build
     steps:
+      - uses: actions/checkout@v5
       - uses: ./.github/workflows/skyhigh.yml
