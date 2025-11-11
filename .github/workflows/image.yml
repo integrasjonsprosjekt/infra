@@ -30,6 +30,7 @@ jobs:
           OS_APPLICATION_CREDENTIAL_SECRET: ${{ secrets.OS_APPLICATION_CREDENTIAL_SECRET }}
           OS_APPLICATION_CREDENTIAL_ID: ${{ secrets.OS_APPLICATION_CREDENTIAL_ID }}
   deploy:
+    needs: build
     uses: ./.github/workflows/skyhigh.yml
     secrets:
       PG_CONN_STR: ${{ secrets.PG_CONN_STR }}
