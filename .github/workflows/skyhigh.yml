@@ -1,6 +1,17 @@
 name: Deploy infrastructure
 on:
   workflow_call:
+    secrets:
+      PG_CONN_STR:
+        required: true
+      OS_AUTH_URL:
+        required: true
+      OS_APPLICATION_CREDENTIAL_SECRET:
+        required: true
+      OS_APPLICATION_CREDENTIAL_ID:
+        required: true
+      TF_VAR_GOOGLE_APPLICATION_CREDENTIALS_CONTENT:
+        required: true
   workflow_dispatch:
 
 jobs:
