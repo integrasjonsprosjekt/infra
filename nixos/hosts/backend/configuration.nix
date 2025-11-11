@@ -9,7 +9,10 @@
           "80:8080"
         ];
         volumes = [ "/etc/secrets/google_application_credentials.json:/google_application_credentials.json" ];
-        environment = { GOOGLE_APPLICATION_CREDENTIALS = "/google_application_credentials.json"; };
+        environment = { 
+          GOOGLE_APPLICATION_CREDENTIALS = "/google_application_credentials.json"; 
+          REDIS_ADDR = "redis:6379";
+        };
       };
       redis = {
         image = "redis:latest";
